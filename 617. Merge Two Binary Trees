@@ -1,2 +1,51 @@
 // https://leetcode.com/problems/merge-two-binary-trees/
 
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    
+    void func(TreeNode** ret, TreeNode* t1, TreeNode* t2) 
+    {
+        if(t1 && t2)
+        {
+            (*ret) = new TreeNode(t1->val + t2->val);
+            func( &((*ret)->left), t1->left, t2->left);
+            func( &((*ret)->right), t1->right, t2->right);
+            return;
+        }
+        else if(t1)
+        {
+            (*ret) = new TreeNode(t1->val);
+            func( &((*ret)->left), t1->left, NULL);
+            func( &((*ret)->right), t1->right, NULL);
+            return;
+        }
+        else if(t2)
+        {
+            (*ret) = new TreeNode(t2->val);
+            func( &((*ret)->left), NULL, t2->left);
+            func( &((*ret)->right), NULL, t2->right);
+            return;
+        }
+        else 
+            return;
+        
+    }
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) 
+    {
+        TreeNode* ret = NULL;
+        func(&ret, t1,  t2);
+        
+        return ret;
+    }
+};
