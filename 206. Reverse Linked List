@@ -1,0 +1,85 @@
+//https://leetcode.com/problems/reverse-linked-list/
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) 
+    {
+        if(head == NULL)
+            return NULL;
+        ListNode* ret = NULL;
+        ListNode* temp1 = head;
+        ListNode* temp2 = nullptr;
+        
+        while(temp1)
+        {
+            temp2 = new ListNode(temp1->val);
+            
+            if(ret)
+            {
+                temp2->next = ret;
+                ret = temp2;
+            }
+            else
+            {
+                ret = temp2;
+            }
+            temp1 = temp1->next;
+        }
+        
+        return ret;
+        
+        
+    }
+};
+
+============================================================================
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) 
+    {
+        
+        ListNode* P_prev = NULL;
+        ListNode* P_next = NULL;
+        
+        while(head)
+        {
+            if(P_prev==NULL)
+            {
+                P_prev = head;
+                head = head->next;
+                P_prev->next = NULL;
+            }
+            else
+            {
+                P_next = head->next;
+                head->next = P_prev;
+                P_prev = head;
+                head = P_next;
+                
+            }
+        }
+        
+        return P_prev;
+    }
+};
