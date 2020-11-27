@@ -11,3 +11,36 @@ public:
         
     }
 };
+
+=========================================================================================================
+//Boyer-Moore Majority Vote Algorithm
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) 
+    {
+        int major_index = 0;
+        int cnt = 1;
+        
+        for(int i = 1; i < nums.size(); i++)
+        {
+            if(nums[i] == nums[major_index])
+            {
+                cnt++;
+            }
+            else
+            {
+                cnt--;
+            }
+            
+            if(cnt == 0)
+            {
+                major_index = i;
+                cnt = 1;
+            }
+        }
+        
+        return nums[major_index];
+        
+    }
+};
