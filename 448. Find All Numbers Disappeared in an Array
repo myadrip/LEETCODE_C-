@@ -21,3 +21,28 @@ public:
 };
 
 ========================================================================================================
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) 
+    {
+        vector<int> ans;
+        
+        int pos = 0;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            //std::cout << i << std::endl;
+            pos = abs(nums[i]) - 1;
+            nums[pos] = abs(nums[pos])*(-1);
+        }
+        
+        for(int i = 0; i < nums.size(); i++)
+        {
+            if(nums[i] > 0)
+                ans.push_back(i+1);
+        }
+        
+        
+        return ans;
+        
+    }
+};
