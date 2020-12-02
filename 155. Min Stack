@@ -1,0 +1,49 @@
+//https://leetcode.com/problems/min-stack/
+
+class MinStack 
+{
+public:
+    /** initialize your data structure here. */
+
+    stack<int> s;
+    stack<int> mins;
+    
+    MinStack() 
+    {
+    }
+    
+    void push(int x) 
+    {
+        if(mins.empty())
+        {
+            mins.push(x);
+        }
+        else
+        {
+            mins.push(std::min(x, mins.top()));
+        }
+        
+        s.push(x);
+        
+        return;
+    }
+    
+    void pop() 
+    {
+        mins.pop();
+        s.pop();
+        return;
+    }
+    
+    int top()
+    {
+        return s.top();
+    }
+    
+    int getMin()
+    {
+        return mins.top();
+    }
+};
+==============================================================================================================
+
