@@ -1,40 +1,38 @@
 //https://leetcode.com/problems/valid-parentheses/
-
 class Solution {
 public:
     bool isValid(string s) 
     {
-        stack<char> buf;
-        char c1;
+        stack<char> paren;
+        
         for(auto& n : s)
         {
-            if(n == '(' || n == '[' || n == '{')
-                buf.push(n);
-            else
+            switch(n)
             {
-                if(buf.empty())
-                    return false;
-                c1 = buf.top();
-                buf.pop();
-                if(n == ')')
-                {
-                    if(c1 != '(')
+                case '(':
+                case '{':
+                case '[':
+                    paren.push(n);
+                    break;
+                case ')':
+                    if(paren.empty() || paren.top() != '(')
                         return false;
-                }
-                else if(n == ']')
-                {
-                    if(c1 != '[')
+                    paren.pop();
+                    break;
+                case '}':
+                    if(paren.empty() || paren.top() != '{')
                         return false;
-                }
-                else if(n == '}')
-                {
-                    if(c1 != '{')
+                    paren.pop();
+                    break;
+                case ']':
+                    if(paren.empty() || paren.top() != '[')
                         return false;
-                }
+                    paren.pop();
+                    break;
             }
         }
         
-        if(buf.empty())
+        if(paren.empty())
             return true;
         else
             return false;
