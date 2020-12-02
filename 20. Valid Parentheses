@@ -1,0 +1,76 @@
+//https://leetcode.com/problems/valid-parentheses/
+
+class Solution {
+public:
+    bool isValid(string s) 
+    {
+        stack<char> buf;
+        char c1;
+        for(auto& n : s)
+        {
+            if(n == '(' || n == '[' || n == '{')
+                buf.push(n);
+            else
+            {
+                if(buf.empty())
+                    return false;
+                c1 = buf.top();
+                buf.pop();
+                if(n == ')')
+                {
+                    if(c1 != '(')
+                        return false;
+                }
+                else if(n == ']')
+                {
+                    if(c1 != '[')
+                        return false;
+                }
+                else if(n == '}')
+                {
+                    if(c1 != '{')
+                        return false;
+                }
+            }
+        }
+        
+        if(buf.empty())
+            return true;
+        else
+            return false;
+    }
+};
+==================================================================================================
+class Solution {
+public:
+    bool isValid(string s) 
+    {
+        std::map<char, char> buf1;
+        buf1[')'] = '(';
+        buf1['}'] = '{';
+        buf1[']'] = '[';
+        std::stack<char> buf2;
+        
+        for(auto& n : s)
+        {
+            if( n== '(' || n== '{' || n== '[')
+                buf2.push(n);
+            else
+            {
+                if(buf2.empty())
+                    return false;
+                if( buf1[n] != buf2.top() )
+                    return false;
+                buf2.pop();
+                    
+            }
+        }
+        if(buf2.empty())
+            return true;
+        else
+            return false;
+        
+        
+    }
+};
+
