@@ -1,0 +1,47 @@
+//https://leetcode.com/problems/partition-labels/
+
+class Solution {
+public:
+    vector<int> partitionLabels(string S) 
+    {
+        int* buf = (int*)malloc(sizeof(int)*S.size());
+        memset(buf, 0x00, sizeof(int)*S.size());
+        
+        
+        for(int i = 0; i < S.size(); i++)
+        {
+            for(int j = S.size()-1; j>i; j-- )
+            {
+                if( S[i] == S[j] )
+                {
+                    buf[i] = j;
+                    break;
+                }
+            }
+            if(buf[i] == 0)
+                buf[i] = i;
+        }
+        
+        vector<int> ans;
+        int max_idx = 0;
+        for(int i = 0; i < S.size(); i++)
+        {
+            max_idx = buf[i];
+            for(int j = i+1; j <= max_idx; j++)
+            {
+                if(buf[j] > max_idx)
+                {
+                    max_idx = buf[j];
+                }
+            }
+            ans.push_back(max_idx-i+1);
+            
+            i = max_idx;
+        }
+        free(buf);
+        return ans;
+    }
+};
+
+======================================================================
+
