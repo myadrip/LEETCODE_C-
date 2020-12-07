@@ -1,0 +1,56 @@
+//https://leetcode.com/problems/generate-parentheses/
+
+
+class Solution {
+public:
+    bool valid(std::string& temp)
+    {
+        int sum = 0;
+        for(auto & n : temp)
+        {
+            if(n == ')')
+            {
+                sum--;
+            }
+            else
+            {
+                sum++;
+            }
+            if(sum < 0)
+                return false;
+            
+        }
+        if(sum == 0)
+            return true;
+        else
+            return false;
+        
+    }
+    void func(int& n, vector<string>& ret, std::string& temp)
+    {
+        if(temp.size() == n*2)
+        {
+            if( valid(temp) )
+                ret.push_back(temp);
+            return;
+        }
+        
+        temp.push_back(')');
+        func(n, ret, temp);
+        temp.pop_back();
+        
+        temp.push_back('(');
+        func(n, ret, temp);
+        temp.pop_back();
+        
+        return;
+    }
+    vector<string> generateParenthesis(int n) 
+    {
+        vector<string> ret;
+        std::string temp;
+        func(n, ret, temp);
+        
+        return ret;
+    }
+};
