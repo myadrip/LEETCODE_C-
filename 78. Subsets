@@ -29,3 +29,38 @@ public:
 };
 
 ============================================================================================================
+class Solution {
+public:
+    
+    vector<int> func(vector<int>& nums, int n)
+    {
+        vector<int> ret;
+        int pos = 0;
+        
+        while(n)
+        {
+            if(n & 1)
+            {
+                ret.push_back(nums[pos]);
+            }
+            pos++;
+            n = n >> 1;
+        }
+        return ret;
+    }
+    
+    vector<vector<int>> subsets(vector<int>& nums) 
+    {
+        vector<vector<int>> ret;
+        vector<int> temp;
+        int cnt = 1<<nums.size();
+        
+        for(int i = 0; i < cnt; i++)
+        {
+            temp = func(nums, i);
+            ret.push_back(temp);
+        }
+        
+        return ret;
+    }
+};
