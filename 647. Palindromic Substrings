@@ -32,3 +32,57 @@ public:
 };
 
 =================================================================================
+class Solution {
+public:
+    int countSubstrings(string s) 
+    {
+        int n = s.size();
+        int ret = 0;
+        
+        bool** dp = (bool**)malloc(sizeof(bool*)*n);
+        for(int i = 0; i < n; i++)
+        {
+            dp[i] = (bool*)malloc(sizeof(bool)*n);
+            memset(dp[i], 0x00, sizeof(bool)*n);
+        }
+        
+        int cnt = 0;
+        int row = 0;
+        int col = 0;
+        for(cnt = 0; cnt < n; cnt++)
+        {
+            for(row = 0; row < n-cnt ;row++)
+            {
+                col = row + cnt;
+                
+                if(row == col)
+                    dp[row][col] = true;
+                else if(col - row == 1)
+                {
+                    if(s[col] == s[row])
+                        dp[row][col] = true;
+                    else
+                        dp[row][col] = false;
+                }
+                else
+                {
+                    if(s[col] == s[row])
+                    {
+                        dp[row][col] = dp[row+1][col-1];
+                    }
+                    else
+                        dp[row][col] = false;
+                }
+                if(dp[row][col])
+                    ret++;
+            }
+        }
+        
+        for(int i = 0; i < n; i++)
+            free(dp[i]);
+        free(dp);
+        
+        
+        return ret;
+    }
+};
