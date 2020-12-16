@@ -1,0 +1,53 @@
+//https://leetcode.com/problems/group-anagrams/
+
+<Time Limit Exceeded>
+class Solution {
+public:
+    
+    bool IsAnagram(string s1, string s2)
+    {
+        if(s1.size() != s2.size())
+            return false;
+        std::sort(s1.begin(), s1.end());
+        std::sort(s2.begin(), s2.end());
+        
+        for(int i = 0; i < s1.size(); i++)
+            if(s1[i]!=s2[i])
+                return false;
+        return true;
+    }
+    
+    vector<vector<string>> groupAnagrams(vector<string>& strs) 
+    {
+        
+        int n = strs.size();
+        vector<int> types(n, -1);
+        int type = 0;
+        
+        for(int i = 0; i < n; i++)
+        {
+            if(types[i] == -1)
+            {
+                types[i] = type;
+                for(int j = i+1; j < n; j++)
+                    if(IsAnagram(strs[i], strs[j]))
+                        types[j] = type;
+                type++;
+            }
+        }
+        
+        vector<vector<string>> ret(type);
+        for(int i = 0; i < type; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                if(types[j] == i)
+                    ret[i].push_back(strs[j]);
+            }
+        }
+        
+        return ret;
+    }
+};
+
+============================================================================================
