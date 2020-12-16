@@ -51,3 +51,26 @@ public:
 };
 
 ============================================================================================
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) 
+    {
+        unordered_map<string, vector<string>> m;
+        
+        for(auto& str : strs)
+        {
+            std::string s = str;
+            std::sort(s.begin(), s.end());
+            m[s].push_back(str);
+        }
+        
+        vector<vector<string>> ret;        
+        for(auto& i : m)
+            ret.push_back(i.second);
+        
+        return ret;
+    }
+};
+
+============================================================================================
+
