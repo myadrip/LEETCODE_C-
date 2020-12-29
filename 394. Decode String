@@ -1,0 +1,43 @@
+// https://leetcode.com/problems/decode-string/
+
+class Solution {
+public:
+    string decodeString(string s) 
+    {
+        string ret;
+        stack<string> s_s;
+        stack<int> s_i;
+        int n = 0;
+        
+        for(auto& c : s)
+        {
+            if('0'<= c && c <='9')
+            {
+                n = n*10 + c-'0';
+            }
+            else if('a'<= c && c <='z')
+            {
+                ret+=c;
+            }
+            else if(c == '[')
+            {
+                s_i.push(n);
+                s_s.push(ret);
+                n = 0;
+                ret = "";
+            }
+            else if(c == ']')
+            {
+                string tmp = ret;
+                for(int i = 0; i < s_i.top()-1; i++)
+                    ret += tmp;
+                s_i.pop();
+                ret = s_s.top() + ret;
+                s_s.pop();
+            }
+        }
+        
+        return ret;
+        
+    }
+};
