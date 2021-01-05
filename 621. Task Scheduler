@@ -1,0 +1,54 @@
+//https://leetcode.com/problems/task-scheduler/
+
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) 
+    {
+        unordered_map<char, int> m;
+        priority_queue<pair<int, char>> pq;
+        vector<pair<int, char>> vec;
+        
+        for(auto& c : tasks)
+            m[c]++;
+        for(auto itr = m.begin(); itr != m.end(); itr++)
+            pq.push(make_pair(itr->second, itr->first));
+        
+        int count = 0;
+        
+        while(!pq.empty())
+        {
+            for(int i = 0; i < n+1; i++)
+            {
+                if(!pq.empty())
+                {
+                    if(pq.top().first != 1)
+                    {
+                        vec.push_back(pq.top());
+                        vec[i].first--;
+                    }
+                    pq.pop();
+                    count++;
+                }
+                else
+                {
+                    if(!vec.empty())
+                        count++;
+                }
+                    
+            }
+            for(int i = 0; i < vec.size(); i++)
+            {                
+                if(vec[i].first !=0)
+                    pq.push(vec[i]);
+            }
+            vec.clear();
+        }
+        
+        return count;
+    }
+};
+
+
+
+================================================
+
