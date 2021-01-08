@@ -1,0 +1,16 @@
+//https://leetcode.com/problems/reverse-string/
+
+class Solution {
+public:
+    void reverseString(vector<char>& s) 
+    {
+        char tmp;
+        int nsize = s.size();
+        for(int i = 0; i < nsize/2; i++)
+        {
+            tmp = s[i];
+            s[i] = s[nsize-1-i];
+            s[nsize-1-i] = tmp;
+        }
+    }
+};
