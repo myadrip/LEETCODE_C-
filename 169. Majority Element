@@ -13,6 +13,26 @@ public:
 };
 
 =========================================================================================================
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        unordered_map<int, int> m;
+        int nsize = nums.size();
+        
+        for(auto& n : nums)
+        {
+            m[n]++;
+            
+            if(m[n] > nsize/2)
+                return n;
+        }
+        
+        return 0;   
+    }
+};
+
+=========================================================================================================
 //Boyer-Moore Majority Vote Algorithm
 
 class Solution {
