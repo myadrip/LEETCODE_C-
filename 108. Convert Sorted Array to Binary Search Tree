@@ -23,3 +23,30 @@ public:
         return root;
     }
 };
+==============================================================================================================
+
+class Solution {
+public:
+    TreeNode* helper_middle(int left, int right, vector<int>& nums)
+    {
+        if(left > right)
+            return NULL;
+        
+        int mid = (left + right)/2;
+        TreeNode* Node = new TreeNode(nums[mid]);
+        
+        Node->left = helper_middle(left, mid-1, nums);
+        Node->right = helper_middle(mid+1, right, nums);
+        
+        return Node;
+        
+        
+    }
+    TreeNode* sortedArrayToBST(vector<int>& nums) 
+    {
+        int len = nums.size();
+        TreeNode* ret = helper_middle(0, len-1, nums);
+        
+        return ret;
+    }
+};
