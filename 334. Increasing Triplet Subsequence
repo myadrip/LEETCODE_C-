@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) 
+    {
+        int min_1 = INT_MAX;
+        int min_2 = INT_MAX;
+        
+        for(auto& n : nums)
+        {
+            if(n <= min_1)
+                min_1 = n;
+            else if(n <= min_2)
+                min_2 = n;
+            else
+                return true;
+        }
+        
+        return false;
+        
+    }
+};
+===========================================================================================
+
