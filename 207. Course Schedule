@@ -1,0 +1,41 @@
+class Solution {
+public:
+    
+    bool dfs(int index, vector<int> Courses[], set<int> &visited)
+    {
+        auto v_iter = visited.find(index);
+        if(v_iter != visited.end())
+            return false;
+        if( Courses[index].size() == 0)
+            return true;
+        visited.insert(index);
+        
+        for(int i = 0; i < Courses[index].size(); i++)
+        {
+            if( dfs(Courses[index][i], Courses, visited) == false)
+                    return false;
+        }
+        visited.erase(index);
+        Courses[index].clear();
+        return true;
+    }
+    
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> Courses[numCourses];
+        set<int> visited;
+        
+        for(auto edge : prerequisites)
+        {
+            Courses[edge[0]].push_back(edge[1]);
+        }
+        
+        for(int i = 0; i < numCourses; i++)
+        {
+            if( dfs(i, Courses, visited) == false)
+                    return false;
+        }
+        
+        return true;
+        
+    }
+};
