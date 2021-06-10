@@ -1,0 +1,56 @@
+class Solution {
+public:
+    
+    bool dfs(int index, vector<int> Courses[], set<int> &visited, 
+             vector<int> &ans)
+    {
+        if(visited.find(index) != visited.end())
+            return false;
+        
+        if(Courses[index].size() == 0)
+        {
+            auto iter = find(ans.begin(), ans.end(), index);
+            if(iter == ans.end())
+                ans.push_back(index);
+            return true;
+        }
+        
+        visited.insert(index);        
+        for(int i = 0; i < Courses[index].size(); i++)
+        {
+            if(dfs(Courses[index][i], Courses, visited, ans) == false)
+            {
+                cout <<index << ", " << Courses[index][i] << endl;
+                return false;
+            }
+                
+        }
+        visited.erase(index);
+        Courses[index].clear();        
+        ans.push_back(index);
+        return true;
+    }
+    
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) 
+    {
+        vector<int> Courses[numCourses];
+        set<int> visited;
+        vector<int> ans;
+        
+        for(auto edge : prerequisites)
+            Courses[edge[0]].push_back(edge[1]);
+        
+        for(int i = 0; i < numCourses; i++)
+        {
+            if(dfs(i, Courses, visited, ans) == false)
+            {
+                ans.clear();
+                return ans;
+            }
+                
+        }
+            
+            
+        return ans;        
+    }
+};
