@@ -1,0 +1,34 @@
+class Solution {
+public:
+    
+    void helper(vector<vector<int>> &isConnected, vector<int> &visited, int n)
+    {
+        if(visited[n] == true)
+            return;
+        visited[n] = true;
+        
+        for(int i = 0; i < isConnected.size(); i++)
+        {
+            if(i!=n && isConnected[n][i] == 1 && visited[i] == false)
+            {
+                helper(isConnected, visited, i);
+            }
+        }
+    }
+    
+    int findCircleNum(vector<vector<int>>& isConnected) 
+    {
+        vector<int> visited(200, false);
+        int ret = 0;
+        
+        for(int i = 0; i < isConnected.size(); i++)
+        {
+            if(visited[i] == false)
+            {
+                ret++;
+                helper(isConnected, visited, i);
+            }
+        }
+        return ret;
+    }
+};
