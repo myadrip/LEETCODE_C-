@@ -1,0 +1,55 @@
+class Solution {
+public: 
+    void dfs(string &digits, int n, vector< vector<char>> &nums, string str, vector<string> &ans)
+    {
+        int digit = digits[n]-'0';
+     
+        for(int i = 0; i < nums[digit].size(); i++)
+        {
+            if(n == digits.size()-1)
+                ans.push_back(str + nums[digit][i]);
+            else
+                dfs(digits, n+1, nums, str + nums[digit][i], ans);
+        }
+        return;
+    }
+    
+    vector<string> letterCombinations(string digits) {
+        vector<string> ans;
+        
+        if(digits.size() == 0)
+            return ans;
+        vector< vector<char>> nums(10);
+        nums[2].push_back('a');
+        nums[2].push_back('b');
+        nums[2].push_back('c');
+        nums[3].push_back('d');
+        nums[3].push_back('e');
+        nums[3].push_back('f');
+        nums[4].push_back('g');
+        nums[4].push_back('h');
+        nums[4].push_back('i');
+        nums[5].push_back('j');
+        nums[5].push_back('k');
+        nums[5].push_back('l');
+        nums[6].push_back('m');
+        nums[6].push_back('n');
+        nums[6].push_back('o');
+        nums[7].push_back('p');
+        nums[7].push_back('q');
+        nums[7].push_back('r');
+        nums[7].push_back('s');
+        nums[8].push_back('t');
+        nums[8].push_back('u');
+        nums[8].push_back('v');
+        nums[9].push_back('w');
+        nums[9].push_back('x');
+        nums[9].push_back('y');
+        nums[9].push_back('z');
+        
+        
+        dfs(digits, 0, nums, "", ans);
+        
+        return ans;
+    }
+};
