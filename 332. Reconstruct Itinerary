@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<string> findItinerary(vector<vector<string>>& tickets) {
+        unordered_map<string, vector<string>> m;
+        vector<string> ans;
+        
+        for(auto str : tickets)
+            m[str[0]].push_back(str[1]);
+        for(auto& kv: m)
+            sort(kv.second.begin(), kv.second.end());
+        
+        ans.push_back("JFK");
+        DFS(ans, "JFK", tickets.size(), m);
+        
+        
+        return ans;
+    }
+    
+    bool DFS(vector<string> &ans, string str, int t_size, unordered_map<string, vector<string>> &m)
+    {
+        cout << str << endl;
+        if(ans.size() == t_size+1)
+            return true;
+        
+        for(int i = 0; i < m[str].size(); i++)
+        {
+            string temp = m[str][i];
+            ans.push_back(temp);
+            m[str].erase(m[str].begin()+i);
+            
+            if(DFS(ans, temp, t_size, m))
+                return true;
+            else
+            {
+                m[str].push_back(temp);
+                sort(m[str].begin(), m[str].end());
+                ans.pop_back();
+            }
+                
+        }
+        
+        return false;
+    }
+    
+};
