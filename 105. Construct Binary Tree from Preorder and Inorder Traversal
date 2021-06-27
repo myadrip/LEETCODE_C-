@@ -34,8 +34,6 @@ public:
         }
         r--;
         
-    
-        
         func(preorder, inorder, &((*root)->left), left+1, left+l,vec);
         func(preorder, inorder, &((*root)->right), left+l+1, left+l+r,vec);
         
@@ -64,8 +62,6 @@ public:
         
         if(pre_start > pre_end || in_start>in_end)
             return nullptr;
-        // cout << "preorder:" << pre_start << " ~ "<< pre_end << endl;
-        // cout << "inoder:" << in_start << " ~ "<< in_end << endl;
         int index_in_inorder = 0;
         int left_cnt = 0;
         int right_cnt = 0;
