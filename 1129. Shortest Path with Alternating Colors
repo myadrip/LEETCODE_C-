@@ -1,0 +1,57 @@
+class Solution {
+public:
+    vector<int> shortestAlternatingPaths(int n, vector<vector<int>>& red_edges, vector<vector<int>>& blue_edges) {
+        vector<int> ans(n);
+        
+        unordered_map<int, vector<pair<int, bool>>> um;
+        //true: red
+        //false: blue
+        
+        for(int i = 0; i < red_edges.size(); i++)
+            um[red_edges[i][0]].push_back(make_pair(red_edges[i][1], true));
+        
+        for(int i = 0; i < blue_edges.size(); i++)
+            um[blue_edges[i][0]].push_back(make_pair(blue_edges[i][1], false));
+        
+        for(int i = 0; i < n; i++)
+            ans[i] = help(i, um);
+        
+        return ans;
+    }
+    int help(int target, unordered_map<int, vector<pair<int, bool>>> &um)
+    {
+        if(target == 0)
+            return 0;
+        queue<pair<int, bool>> q;
+        set<pair<int, bool>> st;
+        for(int i = 0; i < um[0].size(); i++)
+            q.push(um[0][i]);
+            
+        int n = 1;
+        
+        while(!q.empty() )
+        {
+            int s = q.size();
+            while(s--)
+            {
+                auto tmp = q.front();
+                q.pop();
+                if(st.find(tmp) != st.end())
+                    continue;
+                st.insert(tmp);
+                
+                if(tmp.first == target)
+                    return n;
+                for(int i = 0; i < um[tmp.first].size(); i++)
+                {
+                    if(um[tmp.first][i].second != tmp.second)
+                        q.push(um[tmp.first][i]);
+                }
+            }
+            n++;
+        }
+        
+        return -1;
+    }
+    
+};
