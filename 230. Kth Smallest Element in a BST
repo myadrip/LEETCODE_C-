@@ -43,7 +43,36 @@ public:
     int kthSmallest(TreeNode* root, int k) 
     {
         return traverse(root, k);
+    }
+};
+===============================================================================================
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) 
+    {
+        int ans = 0;
+        int index = 1;
+        inorder_search(root, k, ans, index);
         
+        return ans;
+    }
+    bool inorder_search(TreeNode* root, int &k, int& ans, int& index)
+    {
+        if(!root)
+            return false;
         
+        if(inorder_search(root->left, k, ans, index))
+            return true;
+        
+        if( k == index)
+        {
+            ans = root->val;
+            return true;
+        }            
+        index++;
+        
+        if(inorder_search(root->right, k, ans, index))
+            return true;
+        return false;
     }
 };
