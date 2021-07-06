@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        if(amount == 0)
+            return 0;
+        queue<double> q;
+        set<double> st;
+        
+        int ans = 1;
+        for(auto n : coins)
+            q.push(n);
+        
+        while(!q.empty())
+        {
+            auto s = q.size();
+            
+            while(s--)
+            {
+                auto tmp = q.front();
+                q.pop();
+                if(st.find(tmp) != st.end())
+                    continue;
+                else
+                    st.insert(tmp);
+                if(tmp == amount)
+                    return ans;
+                if(tmp > amount)
+                    continue;
+                for(auto n : coins)
+                    q.push(n+tmp);                
+            }
+            ans++;
+        }
+        return -1;
+    }
+};
