@@ -13,3 +13,22 @@ public:
         return n;
     }
 };
+=========================================================
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        bool buf[10000] = {false,};
+        for(auto num : nums)
+        {
+            buf[num] = true;
+        }
+        for(int i = 0; i < 10000; i++)
+        {
+            if(buf[i] == false)
+                return i;
+        }   
+        
+        return 0;
+        
+    }
+};
