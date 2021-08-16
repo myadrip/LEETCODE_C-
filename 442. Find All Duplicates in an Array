@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        
+        vector<int> ret;
+        for(auto num : nums)
+        {
+            if(nums[abs(num)-1] >0)
+            {
+                nums[abs(num)-1] *= (-1);
+            }
+            else
+            {
+                ret.push_back(abs(num));
+            }
+        }
+        
+        return ret;
+        
+    }
+};
+==============================================================================
+
+
+
+// class Solution {
+// public:
+//     vector<int> findDuplicates(vector<int>& nums) {
+//         vector<bool> vec(nums.size(), false);
+//         vector<int> ret;
+        
+//         for(auto num : nums)
+//         {
+//             if(vec[num] == true)
+//                 ret.push_back(num);
+//             else
+//                 vec[num] = true;
+//         }
+        
+//         return ret;
+        
+//     }
+// };
