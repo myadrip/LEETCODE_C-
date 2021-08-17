@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if(n == 1)
+            return nums[0];
+        else if( n == 2)
+            return max(nums[0], nums[1]);
+        
+        vector<int> m0(n, 0);
+        vector<int> m1(n, 0);
+        int ret = 0;
+        
+        for(int i = 0; i < n; i++)
+        {
+            if(i == 0 )
+            {
+                m0[i] = nums[i];
+            }                
+            else if(i == 1 )
+            {
+                m0[i] = max(nums[i], m0[i-1]);
+                m1[i] = nums[i];
+            }
+            else if(i == nums.size()-1 )
+            {
+                m0[i] = m0[i-1];
+                m1[i] = max(nums[i]+m1[i-2], m1[i-1]);                
+                ret = max(m0[i], m1[i]);
+            }
+            else
+            {
+                m0[i] = max(nums[i]+m0[i-2], m0[i-1]);
+                m1[i] = max(nums[i]+m1[i-2], m1[i-1]);
+            }
+                
+        }
+        
+        return ret;
+        
+    }
+};
