@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<string> ret;
+    
+    vector<string> wordBreak(string s, vector<string>& wordDict) {        
+        set<string> words;
+        for(auto word : wordDict)
+            words.insert(word);        
+  
+        helper(s, 0, words, "" );
+        
+        return ret;
+    }
+    
+    void helper(string &s, int index, set<string> words, string sofar)
+    {
+        if(index == s.size())
+        {
+            ret.push_back(sofar);
+            return;
+        }
+        
+        string tmp = "";
+        for(int i = index; i < s.size(); i++)
+        {
+            tmp+=s[i];
+            if(words.find(tmp) != words.end())
+            {
+                if(sofar != "")
+                    helper(s, i+1, words, sofar+" "+tmp);
+                else
+                    helper(s, i+1, words, tmp);
+            }
+        }
+        
+        return;
+    }
+};
