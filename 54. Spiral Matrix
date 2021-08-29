@@ -1,0 +1,123 @@
+class Solution {
+public:
+    vector<int> ret;
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int row = 0;
+        int col = 0;
+        int ex_row = -1;
+        int ex_col = -1;
+        
+        while(1)
+        {
+            move_right(matrix, row, col);
+            move_down(matrix, row, col);
+            move_left(matrix, row, col);
+            move_up(matrix, row, col);
+            
+            if(row == ex_row && col == ex_col)
+            {
+                ret.push_back(matrix[row][col]);
+                break;
+            }
+            else
+            {
+                ex_row = row;
+                ex_col = col;
+            }
+        }
+        
+        return ret;
+    }
+    
+    
+    void move_right(vector<vector<int>>& matrix, int &row, int &col)
+    {
+        // cout << __func__ <<": "<< row << ", " << col<< endl;
+        
+        
+        while(1)
+        {
+            if(col == matrix[0].size()-1 || matrix[row][col+1] == INT_MAX)
+                return;
+            
+            if(matrix[row][col] != INT_MAX)
+            {
+                ret.push_back(matrix[row][col]);
+                matrix[row][col] = INT_MAX;
+            }
+            else
+                return;
+            
+            col++;
+        }
+        
+        return;
+    }
+    void move_left(vector<vector<int>>& matrix, int &row, int &col)
+    {
+        // cout << __func__ <<": "<< row << ", " << col<< endl;
+        
+        while(1)
+        {
+            if(col == 0 || matrix[row][col-1] == INT_MAX)
+                return;
+            
+            if(matrix[row][col] != INT_MAX)
+            {
+                ret.push_back(matrix[row][col]);
+                matrix[row][col] = INT_MAX;
+            }
+            else
+                return;
+            
+            col--;            
+        }
+        
+        return;
+    }
+    void move_down(vector<vector<int>>& matrix, int &row, int &col)
+    {
+        // cout << __func__ <<": "<< row << ", " << col<< endl;
+        
+        while(1)
+        {
+            if(row == matrix.size()-1 ||  matrix[row+1][col] == INT_MAX)
+                return;
+            
+            if(matrix[row][col] != INT_MAX)
+            {
+                ret.push_back(matrix[row][col]);
+                matrix[row][col] = INT_MAX;
+            }
+            else
+                return;
+            row++;
+        }
+        
+        return;
+    }
+    
+    void move_up(vector<vector<int>>& matrix, int &row, int &col)
+    {
+        // cout << __func__ <<": "<< row << ", " << col<< endl;
+        
+        while(1)
+        {
+            if(row == 0 ||  matrix[row-1][col] == INT_MAX)
+                return;
+            
+            if(matrix[row][col] != INT_MAX)
+            {
+                ret.push_back(matrix[row][col]);
+                matrix[row][col] = INT_MAX;
+            }
+            else
+                return;
+            
+            row--;
+        }
+        
+        return;
+    }
+};
+
